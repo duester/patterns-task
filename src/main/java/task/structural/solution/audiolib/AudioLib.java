@@ -1,6 +1,7 @@
 package task.structural.solution.audiolib;
 
 import task.structural.dependency.fourier.FourierTransformer;
+import task.structural.exception.MissingTagException;
 import task.structural.solution.adapter.MusicFileAdapter;
 
 import java.util.Comparator;
@@ -57,7 +58,7 @@ public class AudioLib {
         Map<String, String> tags = adapter.getTagMap();
         String tagValue = tags.get(tagCode);
         if (tagValue == null) {
-            throw new RuntimeException("Название композиции не задано");
+            throw new MissingTagException("title");
         }
         return tagValue;
     }

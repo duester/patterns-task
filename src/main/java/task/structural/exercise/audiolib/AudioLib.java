@@ -7,6 +7,7 @@ import task.structural.dependency.midi.Sequencer;
 import task.structural.dependency.mp3.MP3File;
 import task.structural.dependency.mp3.Tag;
 import task.structural.dependency.wav.WavFile;
+import task.structural.exception.MissingTagException;
 
 import java.util.Comparator;
 import java.util.Map;
@@ -104,7 +105,7 @@ public class AudioLib {
         Tag titleTage = file.getTags().stream()
                 .filter(tag -> tag.getCode().equals("title")).findFirst()
                 .orElseThrow(() -> {
-                    throw new RuntimeException("Название композиции не задано");
+                    throw new MissingTagException("title");
                 });
         return titleTage.getValue();
     }
@@ -113,7 +114,7 @@ public class AudioLib {
         Map<String, String> tags = file.getTags();
         String title = tags.get("title");
         if (title == null) {
-            throw new RuntimeException("Название композиции не задано");
+            throw new MissingTagException("title");
         }
         return title;
     }
@@ -121,7 +122,7 @@ public class AudioLib {
     public String getTitle(MIDIFile file) {
         String title = file.getTitle();
         if (title == null) {
-            throw new RuntimeException("Название композиции не задано");
+            throw new MissingTagException("title");
         }
         return title;
     }
